@@ -56,7 +56,7 @@ return [
 
     'asset_url' => env('ASSET_URL', null),
 
-    
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
@@ -68,7 +68,7 @@ return [
     |
     */
 
-    'timezone' => 'America\Fortaleza',
+    'timezone' => 'America/Fortaleza',
 
     /*
     |--------------------------------------------------------------------------
@@ -226,6 +226,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Helper' => App\Helpers\Helper::class,
 
     ],
 
