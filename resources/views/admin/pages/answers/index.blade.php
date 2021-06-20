@@ -28,7 +28,9 @@
                             {{ $answer->response }}
                             </td>
                             <td style="width=10px;">
-                                
+                                <a class="btn btn-warning" href="{{route('situacoes.respostas.edit', [$category->id, $answer->id])}}">
+                                Editar
+                                </a>
                             </td>
                         </tr>
                     @endforeach

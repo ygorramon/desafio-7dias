@@ -1,17 +1,27 @@
 <?php
-
- Route::get('/admin/situacoes', 'Admin\AnswerController@categories')->name('situacoes.index');
- Route::get('/admin/situacoes/{id}/respostas', 'Admin\AnswerController@index')->name('situacoes.respostas.index');
- Route::get('/admin/situacoes/{id}/respostas/create', 'Admin\AnswerController@create')->name('situacoes.respostas.create');
- Route::post('/admin/situacoes/{url}/respostas', 'Admin\AnswerController@store')->name('situacoes.respostas.store');
-
-
- Route::get('/admin/analises', 'Admin\AnalyzeController@index')->name('analyzes.index');
- Route::get('/admin/analises/create', 'Admin\AnalyzeController@create')->name('analyzes.create');
- Route::post('/admin/analises', 'Admin\AnalyzeController@store')->name('analyzes.store');
- Route::get('/admin/analises/{id}/processar', 'Admin\AnalyzeController@processar')->name('analyzes.processar');
- Route::get('/admin/analises/{id}/rotina','Admin\AnalyzeController@rotina')->name('analyzes.rotina');
-
-Route::get('/', function () {
-    return view('welcome');
+Route::prefix('admin')
+->namespace('Admin')
+->middleware('auth')
+->group(function() {
+    Route::get('/situacoes', 'AnswerController@categories')->name('situacoes.index');
+    Route::get('/situacoes/{id}/respostas', 'AnswerController@index')->name('situacoes.respostas.index');
+    Route::get('/situacoes/{id}/respostas/create', 'AnswerController@create')->name('situacoes.respostas.create');
+    Route::post('/situacoes/{url}/respostas', 'AnswerController@store')->name('situacoes.respostas.store');
+    Route::put('/situacoes/{id}/respostas/{answerId}', 'AnswerController@update')->name('situacoes.respostas.update');
+    Route::get('/situacoes/{id}/answer/{answerId}/edit', 'AnswerController@edit')->name('situacoes.respostas.edit');
+   
+   
+    Route::get('/analises', 'AnalyzeController@index')->name('analyzes.index');
+    Route::get('/analises/create', 'AnalyzeController@create')->name('analyzes.create');
+    Route::post('/analises', 'AnalyzeController@store')->name('analyzes.store');
+    Route::get('/analises/{id}/processar', 'AnalyzeController@processar')->name('analyzes.processar');
+    Route::get('/analises/{id}/rotina','AnalyzeController@rotina')->name('analyzes.rotina');
+   
 });
+
+ 
+
+
+Auth::routes();
+
+Route::get('/', 'Admin\AnalyzeController@index')->middleware('auth');

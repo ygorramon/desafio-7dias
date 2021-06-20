@@ -87,9 +87,20 @@ class AnswerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, $answerId)
     {
-        //
+        if (!$category = $this->category->where('id', $id)->first()) {
+            return redirect()->back();
+        }
+        if (!$answer = $this->repository->where('id', $answerId)->first()) {
+            return redirect()->back();
+        }
+
+        return view('admin.pages.answers.edit', [
+            'category' => $category,
+            'answer' => $answer,
+        ]);
+        
     }
 
     /**
@@ -99,9 +110,18 @@ class AnswerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, $answerId)
     {
-        //
+        if (!$category = $this->category->where('id', $id)->first()) {
+            return redirect()->back();
+        }
+        if (!$answer = $this->repository->where('id', $answerId)->first()) {
+            return redirect()->back();
+        }
+       $answer->update($request->all());
+
+
+       return redirect()->route('situacoes.respostas.index', $category->id);
     }
 
     /**
