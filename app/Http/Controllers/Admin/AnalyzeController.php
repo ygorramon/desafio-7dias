@@ -67,7 +67,9 @@ return view ('admin.pages.analyzes.index', ['clients'=>$clients]);
    public function processar ($id){
       $client=Client::find($id);
       $janela = Helper::getJanela($client->babyAge);
-      $qtd_janelas_inadequadas=count($client->naps->where('window','>',$janela->janelaIdealFim));
+      $qtd_janelas_inadequadas_fim=count($client->naps->where('window','>',$janela->janelaIdealFim));
+      $qtd_janelas_inadequadas_inicio=count($client->naps->where('window','<',$janela->janelaIdealInicio));
+      $qtd_janelas_inadequadas=$qtd_janelas_inadequadas_fim+$qtd_janelas_inadequadas_inicio;
       $qtd_rituals_inicio_inadequados=count($client->rituals->where('start','>','21:00:00'));
       $qtd_sonecas_inadequadas=count($client->naps->where('duration','<',40));
       $qtd_sonecas_longas=count($client->naps->where('duration','>',120));
@@ -82,7 +84,6 @@ return view ('admin.pages.analyzes.index', ['clients'=>$clients]);
     // $qtd_janelas_inadequadas=2;
     // $qtd_sonecas_inadequadas=1;
     // $babySex='FEMININO';
-    
      $sinais_sono=$client->form->noticeSigns;
      $babySex=$client->babySex;
      $ganhoPeso=$client->form->weightGain;
@@ -293,7 +294,8 @@ return view ('admin.pages.analyzes.index', ['clients'=>$clients]);
           }
 
           if($qtd_dias_acordou_cedo==0 && $qtd_dias_acordou_tarde==0){
-            if(strtotime($acordou_mais_tarde)-strtotime($acordou_mais_cedo) > '01:00:00'){
+            
+            if(strtotime($acordou_mais_tarde)-strtotime($acordou_mais_cedo) > strtotime('01:00:00')){
               $passo3['despertar']=Category::where('sex',$babySex)
               ->where('description', 
               'PASSO 3 - DESPERTAR - acorda entre 06:00 e 08:00 + Diferença entre o horário mais cedo e o mais tarde > 60 min')
@@ -349,12 +351,14 @@ return view ('admin.pages.analyzes.index', ['clients'=>$clients]);
             }
 
             if($qtd_ritual_inadequado==0){
-              if($client->form->ritualType="Sem choro"){
+              if($client->form->ritualType=="Sem choro"){
                 $passo3['ritualNoturno']=Category::where('sex',$babySex)
                 ->where('description', 
                 'PASSO 3 - RITUAL NOTURNO - ADEQUADO + sem choro')
                 ->first()->answers()->get();
               }else{
+               
+
                 $passo3['ritualNoturno']=Category::where('sex',$babySex)
                 ->where('description', 
                 'PASSO 3 - RITUAL NOTURNO - ADEQUADO + choro')
