@@ -91,7 +91,6 @@ return view ('admin.pages.analyzes.index', ['clients'=>$clients]);
      $ganhoPeso=$client->form->weightGain;
      $situacaoGanhoPeso=Helper::getGanhoPeso($client->babyAge,$ganhoPeso);
      
-     
      $causasApontadas=Helper::getCausasApontadas($client->form->conclusion);
      $dificuldadesRotinaAlimentar=Helper::getDificuldadesRotina($client->form->routineDifficulties);
     $passo2['imaturidade']="";
@@ -551,7 +550,9 @@ return view ('admin.pages.analyzes.index', ['clients'=>$clients]);
         $passo2['imaturidade']= Helper::stringReplace($passo2['imaturidade'][rand(0,count($passo2['imaturidade'])-1)]->response, $client);
 
        }
+       if(!$passo2['fome']==""){
        $passo2['fome']= Helper::stringReplace($passo2['fome'][rand(0,count($passo2['fome'])-1)]->response, $client);
+       }
        $passo2['salto']= Helper::stringReplace($passo2['salto'][rand(0,count($passo2['salto'])-1)]->response, $client);
        if(!$passo2['angustia']==""){
        $passo2['angustia']= Helper::stringReplace($passo2['angustia'][rand(0,count($passo2['angustia'])-1)]->response, $client);

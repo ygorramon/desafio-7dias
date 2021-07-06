@@ -194,11 +194,10 @@ class Helper
 
    public static function getGanhoPeso($bebe_idade,$ganhoPeso){
     $data="";
-    
-    if($bebe_idade<90 && $ganhoPeso>=700){
+    if($bebe_idade<=90 && $ganhoPeso>=700){
       $data="Adequado";
     }
-    if($bebe_idade<90 && $ganhoPeso<700){
+    if($bebe_idade<=90 && $ganhoPeso<700){
       $data="Inadequado";
     }
     if($bebe_idade>90 && $bebe_idade<=180 && $ganhoPeso>=600){
