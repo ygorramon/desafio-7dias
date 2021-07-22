@@ -168,19 +168,19 @@ class Helper
        $data['janelaIdealFim']=90;
    }
    
-   if($bebe_idade>=120 && $bebe_idade<179){
+   if($bebe_idade>=120 && $bebe_idade<=179){
        $data['janelaIdealInicio']=75;
        $data['janelaIdealFim']=120;
    }
-   if($bebe_idade>=180 && $bebe_idade<269){
+   if($bebe_idade>=180 && $bebe_idade<=269){
        $data['janelaIdealInicio']=100;
        $data['janelaIdealFim']=150;
    }
-   if($bebe_idade>=270 && $bebe_idade<359){
+   if($bebe_idade>=270 && $bebe_idade<=359){
        $data['janelaIdealInicio']=120;
        $data['janelaIdealFim']=210;
    }
-   if($bebe_idade>=360 && $bebe_idade<539){
+   if($bebe_idade>=360 && $bebe_idade<=539){
        $data['janelaIdealInicio']=120;
        $data['janelaIdealFim']=240;
    }

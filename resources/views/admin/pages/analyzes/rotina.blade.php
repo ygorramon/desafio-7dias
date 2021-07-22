@@ -21,7 +21,7 @@
         <div class="row">
         @foreach($client->analyzes as $analyze)
         
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="card card-info">
               <div class="card-header">
                 <h3 class="card-title">DIA {{$analyze->day}} - {{$analyze->date}}</h3>
@@ -40,6 +40,8 @@
 
                 <tbody><tr>
                 <th>#</th>
+                <th>Horário Dormiu </th>
+                <th>Horário Acordou</th>
                   <th>Duração </th>
                   <th>Janela</th>
                   <th>Janela Ideal </th>
@@ -47,6 +49,9 @@
                @foreach($analyze->naps as $nap)
                 <tr>
                 <td>Soneca {{$nap->number}}</td>
+                <td> {{$nap->timeSlept}}</td>
+                <td> {{$nap->timeWokeUp}}</td>
+
                 <td>
                 @if($nap->duration<40)
                 <span class="badge bg-red">{{$nap->duration}}</span>
@@ -71,6 +76,8 @@
                 @endforeach
                 @foreach($analyze->rituals as $ritual)
                 <tr><td>Ritual</td>
+                <td>{{$ritual->start}}</td>
+                <td>{{$ritual->end}}</td>
                 <td>@if($ritual->duration > 30)
                 <span class="badge bg-red">{{$ritual->duration}}</span>
                 @else
