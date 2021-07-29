@@ -11,6 +11,14 @@
             
             <a href="{{ route('analyzes.create') }}" class="btn btn-dark">ADD</a>
         </div>
+
+        <div class="card-header">
+            <form action="{{ route('analyzes.search') }}" method="POST" class="form form-inline">
+                @csrf
+                <input type="text" name="filter" placeholder="Filtrar:" class="form-control" value="{{ $filters['filter'] ?? '' }}">
+                <button type="submit" class="btn btn-dark">Filtrar</button>
+            </form>
+        </div>
         <div class="card-body">
         <table class="table table-condensed">
                 <thead>
@@ -45,7 +53,11 @@
             </table>
         </div>
         <div class="card-footer">
-            Footer
+            @if (isset($filters))
+                {!! $clients->appends($filters)->links() !!}
+            @else
+                {!! $clients->links() !!}
+            @endif
         </div>
     </div>
 @stop

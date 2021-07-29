@@ -14,11 +14,21 @@ use App\Models\Category;
 
 use Helper;
 
+
+
 class AnalyzeController extends Controller
 {
+
+  public function __construct(Client $client)
+    {
+        $this->repository = $client;
+
+    }
+
    public function index(){
-$clients= Client::all();
+$clients= $this->repository->latest()->paginate();
 return view ('admin.pages.analyzes.index', ['clients'=>$clients]);
+
    }
    public function create(){
        return view ('admin.pages.analyzes.create');
@@ -621,4 +631,23 @@ return view ('admin.pages.analyzes.index', ['clients'=>$clients]);
      $client=Client::find($id);
      return view ('admin.pages.analyzes.rotina', ['client'=>$client]);
    }
+
+   public function search(Request $request)
+   {
+       $filters = $request->only('filter');
+
+       $clients = $this->repository
+                           ->where(function($query) use ($request) {
+                               if ($request->filter) {
+                                   $query->orWhere('motherName', 'LIKE', "%{$request->filter}%");
+                                   $query->orWhere('babyName', 'LIKE', "%{$request->filter}%");
+                               }
+                           })
+                           ->latest()
+                           ->paginate();
+
+                           return view ('admin.pages.analyzes.index', compact('clients', 'filters'));
+
+   }
+
 }

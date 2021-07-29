@@ -16,6 +16,8 @@ Route::prefix('admin')
     Route::post('/analises', 'AnalyzeController@store')->name('analyzes.store');
     Route::get('/analises/{id}/processar', 'AnalyzeController@processar')->name('analyzes.processar');
     Route::get('/analises/{id}/rotina','AnalyzeController@rotina')->name('analyzes.rotina');
+
+    Route::any('analises/search', 'AnalyzeController@search')->name('analyzes.search');
    
 });
 
