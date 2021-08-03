@@ -37,7 +37,7 @@ class Helper
     }
 
     public static function textPDFtoForm(string $text){
-    $formulario_text = Helper::get_between($text,"Formulário Final", " Fim" );          
+    $formulario_text = Helper::get_between($text,"Formulário Final", " 159357" ); 
     $formulario =[
       'ritualGoodMorning'=>trim(Helper::get_between($formulario_text,"Bom Dia bem estabelecido:", "Quais" )),
       'criteriaRitualGoodMorning'=>trim(Helper::get_between($formulario_text,"Quais critérios você cumpre do Ritual do Bom Dia:", "Rotina Alimentar:" )),

@@ -40,14 +40,13 @@ return view ('admin.pages.analyzes.index', ['clients'=>$clients]);
             $text= preg_replace("/\r|\t/","", $text);
             $text= preg_replace("/\r|\n/","", $text);
            
-            $text=$text.' Fim';
+            $text=$text.' 159357';
          
+           
             //echo($text);
             $clientData=Helper::textPDFToClient($text);
             $formData=Helper::textPDFtoForm($text);
             $analyzeData=Helper::textPDFtoAnalyze($text);
-           
-
             $client = Client::create([
                 'motherName'=>$clientData->motherName,
                 'motherPhone'=>$clientData->motherPhone,
@@ -103,7 +102,8 @@ return view ('admin.pages.analyzes.index', ['clients'=>$clients]);
      
      $causasApontadas=Helper::getCausasApontadas($client->form->conclusion);
      $dificuldadesRotinaAlimentar=Helper::getDificuldadesRotina($client->form->routineDifficulties);
-    $passo2['imaturidade']="";
+    $passo1="";
+     $passo2['imaturidade']="";
     $passo2['fome']="";
     $passo2['dor']="";
     $passo2['salto']="";
@@ -187,6 +187,7 @@ return view ('admin.pages.analyzes.index', ['clients'=>$clients]);
             ->first()->answers()->get();
                   }
          if($sinais_sono=='NÃO'){
+          
             $passo1=Category::where('sex',$babySex)
             ->where('description', 
             'PASSO 1 - Janela de sono inadequada e sonecas com menos de 40 minutos + NÃO percebe sinais de sono')
@@ -553,9 +554,14 @@ return view ('admin.pages.analyzes.index', ['clients'=>$clients]);
           }
 
           //dd($passo3['despertar']);
+if(!$passo1==""){
+  $respostaPasso1= Helper::stringReplace($passo1[rand(0,count($passo1)-1)]->response, $client);
 
-       $respostaPasso1= Helper::stringReplace($passo1[rand(0,count($passo1)-1)]->response, $client);
+}else{
+  $respostaPasso1="";
+}
       
+
        if(!$passo2['imaturidade']==""){
         $passo2['imaturidade']= Helper::stringReplace($passo2['imaturidade'][rand(0,count($passo2['imaturidade'])-1)]->response, $client);
 
@@ -572,8 +578,10 @@ return view ('admin.pages.analyzes.index', ['clients'=>$clients]);
        $passo2['mensagem']= Helper::stringReplace($passo2['mensagem'][rand(0,count($passo2['mensagem'])-1)]->response, $client);
        $passo2['dor']= Helper::stringReplace($passo2['dor'][rand(0,count($passo2['dor'])-1)]->response, $client);
        $passo3['despertar']= Helper::stringReplace($passo3['despertar'][rand(0,count($passo3['despertar'])-1)]->response, $client);
-       $passo3['ritualBomDia']= Helper::stringReplace($passo3['ritualBomDia'][rand(0,count($passo3['ritualBomDia'])-1)]->response, $client);
-      if(!$passo3['rotinaAlimentar']==""){
+       if(!$passo3['ritualBomDia']==""){
+        $passo3['ritualBomDia']= Helper::stringReplace($passo3['ritualBomDia'][rand(0,count($passo3['ritualBomDia'])-1)]->response, $client);        
+      }    
+       if(!$passo3['rotinaAlimentar']==""){
        $passo3['rotinaAlimentar']= Helper::stringReplace($passo3['rotinaAlimentar'][rand(0,count($passo3['rotinaAlimentar'])-1)]->response, $client);
       }
       $passo3['ritualNoturno']= Helper::stringReplace($passo3['ritualNoturno'][rand(0,count($passo3['ritualNoturno'])-1)]->response, $client);
