@@ -184,7 +184,7 @@ class Helper
        $data['janelaIdealInicio']=120;
        $data['janelaIdealFim']=240;
    }
-   if($bebe_idade>540){
+   if($bebe_idade>=540){
        $data['janelaIdealInicio']=120;
        $data['janelaIdealFim']=360;
    }
